@@ -1,0 +1,86 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+
+model User {
+  id Int @id @default(autoincrement())
+  name String
+  email String
+  uid String
+  phoneNumber String? 
+  organization Organization?
+
+  @@map("users")
+}
+
+model Organization {
+  id Int @id @default(autoincrement())
+  name String
+  modality String
+  user User @relation(fields: [userId], references: [id])
+  userId Int @unique
+  createdAt DateTime @default(now())
+  matchs Match[]
+
+  @@map("organizations")
+
+}
+
+model Match {
+  id Int @id @default(autoincrement())
+  name String
+  local String
+  date DateTime
+  hour Int
+  duration Int
+  modality String
+  numberPlayers Int
+  numberMaxPlayers Int
+  numberMinPlayers Int 
+  createdAt DateTime @default(now())
+  organization Organization @relation(fields: [idOrganization], references: [id])
+  idOrganization Int @unique
+  guests Guest[]
+  teams Team[]
+
+  @@map("matchs")
+}
+
+model Guest {
+  id Int @id @default(autoincrement())
+  name String
+  email String?
+  rank String? 
+  phoneNumber String?
+  preferencePosition String?
+  match Match @relation(fields: [idMatch], references: [id])
+  idMatch Int @unique
+  team Team? @relation(fields: [idTeam], references: [id])
+  idTeam Int @unique
+
+  @@map("guests")
+}
+
+model Team {
+  id Int @id @default(autoincrement())
+  nameTeam String 
+  countPlayers Int
+  guests Guest[]
+  match Match @relation(fields: [idMatch], references: [id])
+  idMatch Int @unique
+
+  @@map("teams")
+}
