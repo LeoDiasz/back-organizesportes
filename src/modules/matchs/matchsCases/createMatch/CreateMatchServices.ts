@@ -29,7 +29,9 @@ export class CreateMatchServices {
             const newDate = new Date(`${year}-${month}-${day}`);
             newDate.setHours(Number(hours))
             newDate.setMinutes(Number(minutes))
-            newDate.setHours(newDate.getHours() - 3)
+            newDate.setHours(newDate.getHours())
+
+            console.log("newDate", newDate)
             
             const organization = await prisma.organization.findFirst({ where: { id: organizationId } })
 
@@ -40,7 +42,7 @@ export class CreateMatchServices {
             const newMatchStart = new Date(newDate);
             newMatchStart.setMinutes(newMatchStart.getMinutes() + 1)
             newMatchStart.setTime(newMatchStart.getTime() - 3);
-            console.log(newMatchStart)
+            console.log("newMatch", newMatchStart)
 
             const newMatchEnd = new Date(newMatchStart);
             newMatchEnd.setHours(newMatchEnd.getHours() + duration)
