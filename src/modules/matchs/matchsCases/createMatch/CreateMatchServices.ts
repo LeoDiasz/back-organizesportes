@@ -80,7 +80,7 @@ export class CreateMatchServices {
                     (newMatchStart.getTime() < existingMatchEnd.getTime())
 
                 ) {
-                    const formattedExistingTime = `${existingMatchStart.getHours() + 3}:${existingMatchStart.getMinutes()}`;
+                    const formattedExistingTime = `${existingMatchStart.getHours()}:${existingMatchStart.getMinutes()}`;
                     throw new Error(
                         `Já existe uma partida agendada para este local das ${formattedExistingTime} com duração de ${existingMatch.duration} ${existingMatch.duration > 1 ? "horas" : "hora"}.`
                     );
