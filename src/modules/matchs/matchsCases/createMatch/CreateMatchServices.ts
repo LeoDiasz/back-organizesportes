@@ -15,9 +15,6 @@ export class CreateMatchServices {
     async service({ local, date, hour, modality, duration, numberMaxPlayers, numberMinPlayers, organizationId }: ICreateMatchServicesRequest) {
 
         try {
-
-            console.log("Duração", duration)
-
             if(!date || !hour) {
                 throw new Error("Datas Invalidas.");
             }
@@ -28,7 +25,6 @@ export class CreateMatchServices {
 
             const [day, month, year] = date.split("/");
             const [hours, minutes] = hour.split(":")
-            console.log("day", day, month, year)
 
             const newDate = new Date(`${year}-${month}-${day}`);
             newDate.setHours(Number(hours))

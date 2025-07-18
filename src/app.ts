@@ -6,7 +6,6 @@ import dotenv from "dotenv";
 
 dotenv.config();
 const app = express();
-export const secretKey = process.env.SECRET;
 
 app.use(cors());  
 app.use(express.json());

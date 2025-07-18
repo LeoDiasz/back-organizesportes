@@ -1,8 +1,6 @@
 import { Request, Response } from "express";
 import { GenerateTokenMatchServices } from "./GenerateTokenMatchServices";
 
-
-
 export class GenerateTokenMatchController {
 
     async handle(req: Request, res: Response) {

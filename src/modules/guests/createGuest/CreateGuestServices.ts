@@ -42,7 +42,7 @@ export class CreateGuestServices {
             if (existsMatch.numberPlayers >= existsMatch.numberMaxPlayers) {
                 return new Error("A partida já atingiu o numero máximo de jogadores");
             }
-
+            
             const result = await prisma.guest.create({ data: { name, email, phoneNumber, preferencePosition, idMatch: matchId } });
 
             if (result) {

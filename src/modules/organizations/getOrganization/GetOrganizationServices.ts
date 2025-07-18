@@ -1,5 +1,4 @@
-import AppError from "../../../../errors/AppError";
-import { prisma } from "../../../../prisma/client";
+import { prisma } from "../../../prisma/client";
 
 interface IGetOrganizationRequest {
     email: string;
@@ -8,8 +7,6 @@ interface IGetOrganizationRequest {
 export class GetOrganizationServices {
 
     async service({email}: IGetOrganizationRequest) {
-
-        console.log("Email" , email)
         if(!email) {
             throw new Error("Não foi possivel realizar a busca.");
         }

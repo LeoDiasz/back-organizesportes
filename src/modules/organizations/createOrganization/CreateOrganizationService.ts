@@ -1,5 +1,4 @@
-import AppError from "../../../../errors/AppError"
-import { prisma } from "../../../../prisma/client"
+import { prisma } from "../../../prisma/client"
 
 type ICreateOrganizationRequest = {
     name: string
@@ -35,8 +34,6 @@ export class CreateOrganizationService {
         },
       });
 
-      console.log("Novo usuário criado:", newUser);
-
       if (newUser) {
         const createOrganization = await prisma.organization.create({
           data: {
@@ -45,8 +42,6 @@ export class CreateOrganizationService {
             userId: newUser.id,
           },
         });
-
-        console.log("Organização criada:", createOrganization);
 
         const dataFormatted = {
           ...createOrganization,
