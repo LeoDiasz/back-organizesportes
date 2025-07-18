@@ -1,8 +1,3 @@
----
-type: Faculdade
-title: Documentação OrganizEsportes
-tags: []
----
 
 ## Leonardo Duarte Dias - Projeto OrganizEsportes
 
