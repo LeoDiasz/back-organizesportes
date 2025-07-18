@@ -1,0 +1,17 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.guestRoutes = void 0;
+const express_1 = require("express");
+const CreateGuestController_1 = require("../modules/guests/createGuest/CreateGuestController");
+const GetGuestsController_1 = require("../modules/guests/getGuests/GetGuestsController");
+const UpdateConfirmGuestController_1 = require("../modules/guests/updateConfirmGuest/UpdateConfirmGuestController");
+const DeleteGuestController_1 = require("../modules/guests/deleteGuest/DeleteGuestController");
+exports.guestRoutes = (0, express_1.Router)();
+const createGuestController = new CreateGuestController_1.CreateGuestController();
+const getGuestsController = new GetGuestsController_1.GetGuestsController();
+const updateConfirmGuestController = new UpdateConfirmGuestController_1.UpdateConfirmGuestController();
+const deleteGuestController = new DeleteGuestController_1.DeleteGuestController();
+exports.guestRoutes.post("/", createGuestController.handle);
+exports.guestRoutes.post("/list", getGuestsController.handle);
+exports.guestRoutes.put("/", updateConfirmGuestController.handle);
+exports.guestRoutes.delete("/", deleteGuestController.handle);

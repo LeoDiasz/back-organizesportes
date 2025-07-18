@@ -1,0 +1,18 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.organizationRoutes = void 0;
+const express_1 = require("express");
+const CreateOrganizationController_1 = require("../modules/organizations/organizationCases/createOrganization/CreateOrganizationController");
+const GetOrganizationController_1 = require("../modules/organizations/organizationCases/getOrganization/GetOrganizationController");
+const GetMatchController_1 = require("../modules/matchs/matchsCases/getMatch/GetMatchController");
+const GetOrganizationAndMatchWithCodeController_1 = require("../modules/organizations/organizationCases/getOrganizationAndMatchWithcode/GetOrganizationAndMatchWithCodeController");
+const ensureAuthenticated_1 = require("../middlewares/ensureAuthenticated");
+exports.organizationRoutes = (0, express_1.Router)();
+const createOrganizationController = new CreateOrganizationController_1.CreateOrganizationController();
+const getOrganizationController = new GetOrganizationController_1.GetOrganizationController();
+const getMatchController = new GetMatchController_1.GetMatchController();
+const getOrganizationAndMatchWithCodeController = new GetOrganizationAndMatchWithCodeController_1.GetOrganizationAndMatchWithCodeController();
+exports.organizationRoutes.post("/", ensureAuthenticated_1.ensureAuthenticated, createOrganizationController.handle);
+exports.organizationRoutes.get("/email", ensureAuthenticated_1.ensureAuthenticated, getOrganizationController.handle);
+exports.organizationRoutes.get("/:idOrganization/matchs/:idMatch", getMatchController.handle);
+exports.organizationRoutes.get("/:inviteCode", getOrganizationAndMatchWithCodeController.handle);
