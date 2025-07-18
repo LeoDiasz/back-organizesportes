@@ -16,9 +16,9 @@ datasource db {
 
 
 model User {
-  id Int @id @default(autoincrement())
+  id String @id @default(uuid())
   name String
-  email String
+  email String @unique
   uid String
   phoneNumber String? 
   organization Organization?
@@ -27,11 +27,11 @@ model User {
 }
 
 model Organization {
-  id Int @id @default(autoincrement())
+  id String @id @default(uuid())
   name String
   modality String
   user User @relation(fields: [userId], references: [id])
-  userId Int @unique
+  userId String @unique
   createdAt DateTime @default(now())
   matchs Match[]
 
@@ -40,19 +40,19 @@ model Organization {
 }
 
 model Match {
-  id Int @id @default(autoincrement())
-  name String
+  id String @id @default(uuid())
   local String
-  date DateTime
-  hour Int
-  duration Int
+  dateTime DateTime
   modality String
+  status String
+  duration Int
   numberPlayers Int
   numberMaxPlayers Int
-  numberMinPlayers Int 
+  numberMinPlayers Int
+  inviteCode String?
   createdAt DateTime @default(now())
   organization Organization @relation(fields: [idOrganization], references: [id])
-  idOrganization Int @unique
+  idOrganization String
   guests Guest[]
   teams Team[]
 
@@ -60,27 +60,28 @@ model Match {
 }
 
 model Guest {
-  id Int @id @default(autoincrement())
+  id String @id @default(uuid())
   name String
-  email String?
+  email String
   rank String? 
   phoneNumber String?
+  isConfirm Boolean @default(false)
   preferencePosition String?
   match Match @relation(fields: [idMatch], references: [id])
-  idMatch Int @unique
+  idMatch String
   team Team? @relation(fields: [idTeam], references: [id])
-  idTeam Int @unique
+  idTeam String?
 
   @@map("guests")
 }
 
 model Team {
-  id Int @id @default(autoincrement())
+  id String @id @default(uuid()) 
   nameTeam String 
   countPlayers Int
   guests Guest[]
   match Match @relation(fields: [idMatch], references: [id])
-  idMatch Int @unique
+  idMatch String
 
   @@map("teams")
 }
